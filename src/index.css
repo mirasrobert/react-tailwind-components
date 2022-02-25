@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modal Animation */
+.modal-content {
+  animation-name: modalopen;
+  animation-duration: 1s;
+}
+
+.nav-links,
+nav a,
+nav button {
+  animation-name: modalopen;
+  animation-duration: 1s;
+  transition: all 1s;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .modal-content {
+    width: 80% !important;
+  }
+}
