@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-const Modal = ({ width, margin, children }) => {
+const Modal = ({ title, margin, children }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const modal = useRef()
@@ -32,7 +32,7 @@ const Modal = ({ width, margin, children }) => {
     <>
       <button
         onClick={toggleModalHandler}
-        className='bg-blue-500 hover:bg-blue-700 font-bold text-white py-2 px-3 rounded'>
+        className='bg-blue-500 hover:bg-blue-700 font-bold text-white py-2 mt-4 px-3 rounded'>
         Open Modal
       </button>
 
@@ -44,11 +44,11 @@ const Modal = ({ width, margin, children }) => {
         id='backdrop'>
         {/* sm:w-3/5 md:w-6/12	lg:w-2/5 */}
         <div
-          className='modal-content drop-shadow-xl px-3 py-2 bg-white rounded text-gray-900 md:max-w-screen-md'
-          style={{ margin: `${margin} auto`, width: width }}
+          className='modal-content drop-shadow-xl px-3 py-2 bg-white rounded text-gray-900 md:max-w-screen-md w-4/5 md:w-2/5'
+          style={{ margin: `${margin} auto` }}
           ref={modal}>
           <div className='modal-header flex justify-between py-3'>
-            <h4 className='text-lg font-bold'>Confirm Delete?</h4>
+            <h4 className='text-lg font-bold'>{ title }</h4>
 
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -90,7 +90,6 @@ Modal.propTypes = {
 }
 
 Modal.defaultProps = {
-  width: '40%',
   margin: '15%',
 }
 
