@@ -54,6 +54,7 @@ const App = () => {
         </Modal>
         <Table />
       </div>
+      
     </div>
   )
 }

@@ -81,7 +81,7 @@ const Navbar = () => {
                 href='#'>
                 About
               </a>
-              <button className='bg-black text-white px-4 py-2 rounded hover:bg-slate-900	'>
+              <button className='bg-black text-white px-4 py-2 focus:outline-none focus:border-blue-100 focus:ring-blue-100 focus:ring focus:ring-slate-500 rounded hover:bg-slate-900	'>
                 Login
               </button>
             </div>
