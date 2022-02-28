@@ -3,11 +3,17 @@ import Modal from './components/Modal'
 import Table from './components/tables/Table'
 
 const App = () => {
+
+
   return (
     <div className='App'>
+
+      {/* NAVBAR */}
       <Navbar />
 
-      <div className='container mx-auto px-4'>
+      <div className='container mx-auto px-4 mb-8'>
+
+        {/* MODAL */}
         <Modal title={`Modal Title`} margin='8%'>
           <p className='mb-3'>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad ex
@@ -52,9 +58,11 @@ const App = () => {
             </label>
           </div>
         </Modal>
+        
+        {/* TABLE */}
         <Table />
       </div>
-      
+
     </div>
   )
 }

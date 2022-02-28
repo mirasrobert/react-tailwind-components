@@ -32,7 +32,7 @@ const Modal = ({ title, margin, children }) => {
     <>
       <button
         onClick={toggleModalHandler}
-        className='bg-blue-500 hover:bg-blue-700 font-bold text-white py-2 mt-4 px-3 rounded'>
+        className='bg-blue-500 mt-3 hover:bg-blue-600 rounded-full py-2 px-3 text-white active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 ...'>
         Open Modal
       </button>
 
@@ -48,7 +48,7 @@ const Modal = ({ title, margin, children }) => {
           style={{ margin: `${margin} auto` }}
           ref={modal}>
           <div className='modal-header flex justify-between py-3'>
-            <h4 className='text-lg font-bold'>{ title }</h4>
+            <h4 className='text-lg font-bold'>{title}</h4>
 
             <svg
               xmlns='http://www.w3.org/2000/svg'
