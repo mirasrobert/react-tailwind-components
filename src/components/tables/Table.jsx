@@ -6,8 +6,6 @@ import {
   usePagination,
 } from 'react-table'
 import axios from 'axios'
-import TableHead from './TableHead'
-import TableBody from './TableBody'
 import GlobalFilter from '../GlobalFilter'
 import tw from 'twin.macro'
 
@@ -15,18 +13,19 @@ const TWTable = tw.table`
 min-w-max w-full table-auto
 `
 
-//bg-gray-200
+// Table Head - Table Row
 const TableHeadRow = tw.thead.tr`
 bg-gray-200 text-gray-600 uppercase text-sm leading-normal
 `
 
+// Table Header
 const TableHeader = tw.th`
 py-3 px-6 text-left border border-gray-200 border-b-2	
 `
 
 // font-light
 const Tbody = tw.tbody`
-text-gray-600 text-sm 
+text-gray-700 text-sm
 `
 
 const TBodyRow = tw.tbody.tr`
@@ -37,97 +36,9 @@ const TBodyData = tw.tbody.tr.td`
 m-0 py-2 px-6 text-left
  `
 
-const Table = () => {
-  const [products, setProducts] = useState([])
-
-  const fetchProducts = async () => {
-    const response = await axios.get('https://fakestoreapi.com/products')
-
-    setProducts(response.data)
-  }
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
-
-  const productsColumns = useMemo(
-    () => [
-      {
-        Header: 'ID',
-        accessor: 'id',
-        Cell: ({ cell: { value } }) => <span>{value}</span>,
-        width: '30px',
-      },
-      {
-        Header: 'Title',
-        accessor: 'title',
-        width: '200px',
-      },
-      {
-        Header: 'Price',
-        accessor: 'price',
-        width: '40px',
-      },
-      {
-        Header: 'Description',
-        accessor: 'description',
-        width: '500px',
-        Cell: ({ cell: { value } }) => {
-          let str = value
-
-          if (str.length > 150) return str.substring(0, 150) + '...'
-
-          return <span>{value}</span>
-        },
-      },
-      {
-        Header: 'Category',
-        accessor: 'category',
-        Cell: ({ cell: { value } }) => {
-          //men's clothing
-          // jewelery
-          //electronics
-          // women's clothing
-          if (value === "men's clothing") {
-            return (
-              <span className='bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs'>
-                {value}
-              </span>
-            )
-          }
-
-          if (value === 'jewelery') {
-            return (
-              <span className='bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs'>
-                {value}
-              </span>
-            )
-          }
-
-          if (value === 'electronics') {
-            return (
-              <span className='bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs'>
-                {value}
-              </span>
-            )
-          }
-
-          if (value === "women's clothing") {
-            return (
-              <span className='bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs'>
-                {value}
-              </span>
-            )
-          }
-
-          return <span>{value}</span>
-        },
-      },
-    ],
-    []
-  )
-
-  const productsData = useMemo(() => [...products], [products])
+const Table = ({ data, columns }) => {
+  const tableData = useMemo(() => [...data], [data])
+  const tableColumns = useMemo(() => columns, [columns])
 
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
@@ -197,8 +108,8 @@ const Table = () => {
   // Use Table Hook
   const tableInstance = useTable(
     {
-      columns: productsColumns,
-      data: productsData,
+      columns: tableColumns,
+      data: tableData,
     },
     useGlobalFilter,
     useSortBy,
@@ -233,17 +144,6 @@ const Table = () => {
 
   return (
     <>
-      <div className='overflow-x-auto rounded-md mx-auto'>
-        <div className='w-full'>
-          <div className='bg-white shadow-md rounded my-6'>
-            <table className='min-w-max w-full table-auto'>
-              <TableHead />
-              <TableBody />
-            </table>
-          </div>
-        </div>
-      </div>
-
       {/* REACT TABLE IMPLEMENTATION */}
       <div className='w-full flex justify-between'>
         <div>
@@ -352,7 +252,7 @@ const Table = () => {
                   {' '}
                   {pageIndex + 1} of {pageOptions.length}{' '}
                 </strong>
-                | 1-{page.length} of {products.length}
+                | 1-{page.length} of {tableData.length}
               </div>
 
               <div className='inline-flex mx-2 xs:mt-0'>
