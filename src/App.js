@@ -1,18 +1,29 @@
+import { useState, useEffect, useMemo } from 'react'
+import { productsColumns } from './components/tables/TableColumns'
+import axios from 'axios'
 import Navbar from './components/Navbar'
 import Modal from './components/Modal'
 import Table from './components/tables/Table'
 
 const App = () => {
+  const [products, setProducts] = useState([])
 
+  const fetchProducts = async () => {
+    const response = await axios.get('https://fakestoreapi.com/products')
+
+    setProducts(response.data)
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
 
   return (
     <div className='App'>
-
       {/* NAVBAR */}
       <Navbar />
 
       <div className='container mx-auto px-4 mb-8'>
-
         {/* MODAL */}
         <Modal title={`Modal Title`} margin='8%'>
           <p className='mb-3'>
@@ -58,11 +69,10 @@ const App = () => {
             </label>
           </div>
         </Modal>
-        
-        {/* TABLE */}
-        <Table />
-      </div>
 
+        {/* TABLE */}
+        <Table data={products} columns={productsColumns} />
+      </div>
     </div>
   )
 }
